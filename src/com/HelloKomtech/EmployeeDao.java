@@ -68,6 +68,8 @@ public class EmployeeDao implements IEmployeeDao {
             int cnt = pstm.executeUpdate();
             if (cnt!=0)
                 System.out.println("Pomyślnie usunięto pracownika!\n");
+            else
+                System.out.println("Pracowninik o podanym ID nie istnieje\n");
 
         }catch (Exception ex){
             ex.printStackTrace();
@@ -115,7 +117,12 @@ public class EmployeeDao implements IEmployeeDao {
         try{
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery(query);
+
+            if (result.next() == false)
+                System.out.println("Pracowninik o podanym ID nie istnieje\n");
+
             while (result.next()){
+
                 System.out.format("%d\t%s\t%s\t%d\t%s\t%s\n",
                         result.getInt(1),
                         result.getString(2),
@@ -142,6 +149,10 @@ public class EmployeeDao implements IEmployeeDao {
         try{
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery(query);
+
+            if (result.next() == false)
+                System.out.println("Pracowninik o podanym E-mailu nie istnieje\n");
+
             while (result.next()){
                 System.out.format("%d\t%s\t%s\t%d\t%s\t%s\n",
                         result.getInt(1),
